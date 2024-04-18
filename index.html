@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Quartiles Solver</title>
+		<link rel="preload" href="resources/typeface.woff2" as="font" type="font/woff2" crossorigin>
+		<link rel="stylesheet" href="main.css">
+		<script type="application/javascript" src="solver.js" defer></script>
+	</head>
+	<body>
+		<nav>
+			<a id="curr" href="">Quartiles Solver</a>
+			<a href="https://github.com/nilsstreedain/quartiles-solver" target="_blank">GitHub</a>
+		</nav>
+		<main>
+			<div id="tool">
+                <h1>Apple News+ Quartiles Solver</h1>
+                <p>Quartiles Solver allows you to generate possible solutions to the daily Apple News+ Quartiles puzzle.
+                <p>Enter the daily tiles to compute the solutions. You may need to select a different dictionary as word lists can differ across different puzzle makers. Then click <b>Solve</b></p>
+                <div id="inputs">
+                    <select name="dict" id="dict">
+                      <option value="enable">Enable - Scrabble (172,823 Words)</option>
+                      <option value="rking">Roger King (191,625 Words)</option>
+                      <option value="mbsingle">Moby Single (354,984 Words)</option>
+                      <option value="allwords">All Words (776,522 Words)</option>
+                    </select>
+                    <button id="solve" onclick="solve()">Solve</button></div>
+                <div id="solutions"></div>
+                <p>Enter the solutions into Quartiles. If any words are missing, check your spelling, or try another dictionary. If a word is still missing, or an incorrect word is shown, please create a GitHub Issue so we can update the word list.</p>
+			</div>
+		</main>
+		<footer>
+			<p><a href="https://github.com/nilsstreedain/quartiles-solver" target="_blank">GitHub</a> - by <a href="https://www.nilsstreedain.com" target="_blank">Nils Streedain</a></p>
+		</footer>
+	</body>
+</html>
