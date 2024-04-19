@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: http://quartiles.nilsstreedain.com/sitemap.xml
