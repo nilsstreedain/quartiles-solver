@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 var wordSet;
 async function solve() {
-    const response = await fetch(`resources/wordlists/${document.getElementById('dict').value}.txt`);
+    const response = await fetch(`assets/wordlists/${document.getElementById('dict').value}.txt`);
     wordSet = new Set((await response.text()).split(/\r?\n/));
     
     const tiles = [...Array(20)].map((_, i) =>
@@ -28,18 +28,22 @@ async function solve() {
         addTile(validWords, [tile], tiles.slice(0, i).concat(tiles.slice(i + 1)), 1);
     });
     
-    var solutions = document.getElementById('solutions')
+    const solutions = document.getElementById('solutions');
     solutions.innerHTML = '';
-    Object.entries(validWords).forEach(([k, v]) => {
-        const t = document.createElement('p');
-        t.innerText = `${k}-Tile`;
-        t.style.fontWeight = 'bold';
-        
-        const p = document.createElement('p');
-        p.innerText = v.map(a => a.join('-')).join(', ');
-        
-        solutions.appendChild(t);
-        solutions.appendChild(p);
+
+    Object.entries(validWords).forEach(([k, groups]) => {
+        const header = document.createElement('h2');
+        header.textContent = `${k}-Tile`;
+        solutions.appendChild(header);
+
+        const section = document.createElement('div');
+        groups.forEach(group => {
+            const p = document.createElement('p');
+            p.className = `span-${k}`;
+            group.forEach(word => p.appendChild(document.createElement('span')).textContent = word);
+            section.appendChild(p);
+        });
+        solutions.appendChild(section);
     });
 }
 

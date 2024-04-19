@@ -4,7 +4,9 @@
 	--lGray: #f4f4f4;
 	--mGray: #f0eef6;
 	--dGray: #b1afb6;
-	--pad: 30px;
+    --sPad: 15px;
+    --mPad: 30px;
+    --lPad: 90px;
 }
 
 @font-face {
@@ -13,122 +15,189 @@
 		url(resources/typeface.woff) format(woff);
 }
 
-body {
-	margin: calc(3 * var(--pad)) 5%;
+html {
 	background-color: var(--lGray);
     font-family: -apple-system, typeface;
+    
+    & body {
+        margin: 0;
+    }
 }
 
 nav {
-	position: fixed;
+	position: sticky;
 	top: 0;
-	width: 100%;
-	padding: 0 5%;
-	left: 0;
-	height: 57px;
+    height: 57px;
+	padding: 0 var(--lPad);
 	background-color: var(--lGray);
 	border-bottom: 3px solid var(--mGray);
+    
+    & a {
+        float: left;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: var(--dGray);
+        padding: 0 22px;
+        font-weight: bold;
+        transition: 250ms;
+    }
+    
+    .curr {
+        border-bottom: 3px solid var(--accent);
+    }
+    
+    .curr, .page:hover {
+        color: var(--accent);
+        background-color: var(--mGray);
+    }
 }
 
-nav a {
-	border: none;
-	float: left;
-	display: flex;
-	height: 100%;
-	align-items: center;
-	justify-content: center;
-	padding: 0 22px;
-	font-weight: bold;
-	text-decoration: none;
-	color: var(--dGray);
-}
-
-#curr {
-	color: var(--accent);
-	border-bottom: 3px solid var(--accent);
-}
-
-#curr, nav a:hover {
-	background-color: var(--mGray);
-	cursor:pointer;
-}
-
-main {
-	padding: var(--pad);
-	border-radius: 10px;
-	box-shadow: 0 4px 8px 0 var(--mGray);
-	background-color: var(--white);
-}
-
-#tool {
-	display: inline-block;
-	width: 100%;
-}
-
-#inputs {
-    background-color: var(--mGray);
-    padding: var(--pad);
-    border-radius: calc(10px);
+#content {
     display: grid;
-    grid-template-columns: repeat(4, min-content);
-    grid-gap: 8px;
-    width: min-content;
+    grid-template-columns: var(--authorWidth) minmax(0, 1fr);
+    gap: var(--mPad);
+    margin: var(--mPad) var(--lPad) 0;
+    transition: 250ms;
+    
+    & main {
+        margin-bottom: var(--mPad);
+        padding: var(--mPad);
+        padding-top: 0;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 var(--mGray);
+        background-color: var(--white);
+        line-height: 1.5;
+        height: min-content;
+        
+        & h1, & h2, & h3 {
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+        
+        & h1 {
+            border-bottom: 1px solid var(--lGray);
+            padding-bottom: .3em;
+            font-size: 2em;
+        }
+        
+        & h2 {
+            border-bottom: 1px solid var(--lGray);
+            padding-bottom: .3em;
+            font-size: 1.5em;
+            margin-top: 24px;
+        }
+        
+        & h3 {
+            font-size: 1.25em;
+            margin-top: 24px;
+        }
+        
+        & a {
+            text-decoration: none;
+            color: var(--accent);
+            background: linear-gradient(var(--accent) 0 0) no-repeat bottom / 0% 1px;
+            transition: background 250ms;
+            
+            &:hover {
+                color: var(--accent);
+                background-size: 100% 1px;
+            }
+        }
+    }
 }
 
-input, button {
-	border-radius: 10px;
-	padding: 0;
-	font-size: 1em;
-    font-family: -apple-system, typeface;
-    height: 35px;
+#board {
+    background-color: var(--mGray);
+    padding: var(--mPad);
+    border-radius: calc(10px);
+    
+    #inputs {
+        display: grid;
+        grid-template-columns: repeat(4, min-content);
+        gap: 8px;
+        margin: 0 auto;
+        width: min-content;
+        
+        & select {
+            text-align-last:center;
+            grid-column: 1 / -1;
+        }
+        
+        & input, & button {
+            border-radius: 10px;
+            padding: 0;
+            font-size: 1em;
+            height: 35px;
+            text-align: center;
+        }
+        
+        & input {
+            width: 50px;
+            border: 0px;
+            border-bottom: 3px solid var(--dGray);
+            font-weight: bold;
+        }
+        
+        & button {
+            grid-column: 1 / -1;
+            border: none;
+            background-color: var(--accent);
+            color: var(--white);
+            
+            &:hover {
+                background-color: var(--dGray);
+                color: var(--lGray);
+                cursor:pointer;
+            }
+            
+            &:active {
+                background-color: var(--lGray);
+                color: var(--dGray);
+            }
+        }
+    }
+    
+    #solutions div {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        grid-auto-rows: 38px;
+        grid-gap: 20px;
+        
+        & p {
+            display: inline-block;
+            white-space: nowrap;
+            
+            & span {
+                display: inline-block;
+                height: 35px;
+                margin: 0 var(--sPad) var(--sPad) 0;
+                line-height: 32px;
+                width: 50px;
+                background-color: var(--white);
+                border-radius: 10px;
+                font-weight: bold;
+                text-align: center;
+                border: 0px;
+                border-bottom: 3px solid var(--dGray);
+            }
+        }
+        
+        .span-1 { grid-column: span 1; }
+        .span-2 { grid-column: span 2; }
+        .span-3 { grid-column: span 3; }
+        .span-4 { grid-column: span 4; }
+    }
 }
 
-input {
-	width: 50px;
-    border: 0px;
-    border-bottom: 3px solid var(--dGray);
-    text-align: center;
-    font-weight: bold;
-}
-
-select {
-    text-align-last:center;
-    grid-column: 1 / -1;
-}
-
-button {
-    grid-column: 1 / -1;
-	width: 100%;
-	border: none;
-}
-
-button, footer {
-	background-color: var(--accent);
-	color: var(--white);
-}
-
-button:hover {
-    background-color: var(--dGray);
-    color: var(--lGray);
-	cursor:pointer;
-}
-
-button:active {
-    background-color: var(--lGray);
-    color: var(--dGray);
-}
-
-footer {
-	position: fixed;
-	display: flex;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	height: 60px;
-	align-items: center;
-	justify-content: center;
-}
-
-footer a {
-	color: var(--white);
+/* Portrait Orientation */
+@media (orientation: portrait) {
+    :root {
+        --sPad: 10px;
+        --mPad: 20px;
+        --lPad: 20px;
+    }
 }
