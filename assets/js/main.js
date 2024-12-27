@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             input.setAttribute('autocomplete', 'off');
             input.setAttribute('autocorrect', 'off');
             input.setAttribute('autocapitalize', 'none');
+            input.setAttribute('aria-label', `Tile ${4 * i + j + 1}`);
             document.getElementById('inputs').insertBefore(input, document.getElementById('solve'));
         }
     }
